@@ -4,6 +4,7 @@ python -m venv .venv
 call .venv\Scripts\activate
 pip install -r requirements.txt
 pip install pyinstaller
+pip install pillow
 
 REM Download yt-dlp
 if not exist bin mkdir bin

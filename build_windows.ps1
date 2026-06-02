@@ -5,6 +5,9 @@ python -m venv .venv
 pip install -r requirements.txt
 pip install pyinstaller
 
+# Install Pillow to allow PyInstaller to convert PNG -> ICO on this platform
+pip install pillow
+
 # Download yt-dlp
 if (-not (Test-Path "bin")) { mkdir bin }
 Invoke-WebRequest -Uri "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe" -OutFile "bin\yt-dlp.exe"

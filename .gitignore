@@ -3,3 +3,11 @@ __pycache__/
 *.pyc
 downloads/
 .DS_Store
+build/
+dist/
+*.dmg
+*.exe
+*.app/
+ConvertorMP3.spec
+bin/yt-dlp
+bin/yt-dlp.exe

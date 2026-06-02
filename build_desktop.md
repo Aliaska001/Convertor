@@ -50,5 +50,33 @@ Pentru distribuire pe macOS, cod-signing și notarizare Apple pot fi necesare. A
 ```bash
 source .venv/bin/activate
 python desktop_app.py
+
+## Construire pentru Windows
+
+Este recomandat să rulezi pașii de build pe un sistem Windows (PyInstaller generează binare specifice OS).
+
+1. Pe Windows, creează și activează mediul virtual:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+2. Instalează dependențele și PyInstaller:
+
+```powershell
+pip install -r requirements.txt
+pip install pyinstaller
+```
+
+3. Construiește executabilul Windows (.exe):
+
+```powershell
+pyinstaller --onefile --windowed --add-data "bin\yt-dlp;bin" --name ConvertorMP3.exe desktop_app.py
+```
+
+Fișierul rezultat va fi în `dist\ConvertorMP3.exe`. Pentru distribuire poți crea un installer (`Inno Setup`, `NSIS`) sau împacheta `.exe` într-un `.zip`.
+
+Notă: Dacă vrei ca build-ul Windows să fie generat de pe macOS, poți folosi CI (GitHub Actions) sau mașini virtuale Windows; cross-compilarea locală nu este recomandată.
 ```
 

@@ -1,18 +1,18 @@
-# Convertor YouTube in MP3
+# Convertor YouTube in MP3 — Aplicație Desktop
 
-Aplicație locală pentru Windows/macOS care descarcă și convertește conținut YouTube în MP3.
+Această variantă este o aplicație desktop (macOS/Windows) care descarcă și convertește conținut YouTube în MP3.
 
-## Ce conține acest proiect
+## Ce conține proiectul
 
-- `desktop_app.py` - aplicația desktop Tkinter
-- `converter_core.py` - logică de conversie și descărcare YouTube
-- `bin/yt-dlp` - utilitar yt-dlp folosit pentru descărcarea video-urilor YouTube
-- `requirements.txt` - dependențe Python
+- `desktop_app.py` — aplicația desktop (PyQt5)
+- `converter_core.py` — logică de descărcare și conversie
+- `bin/yt-dlp` — utilitarul `yt-dlp` (inclus sau folosit din PATH)
+- `requirements.txt` — dependențe Python
 
 ## Cerințe
 
 - Python 3.9+
-- `yt-dlp` inclus în `bin/yt-dlp`
+- `PyQt5` (în `requirements.txt`)
 - `ffmpeg` disponibil în sistem sau `imageio-ffmpeg` instalat
 
 ## Instalare locală
@@ -29,10 +29,11 @@ pip install -r requirements.txt
 python desktop_app.py
 ```
 
-Introdu un link YouTube, alege folderul de salvare și apasă `Converteste in MP3`.
+## Construire pentru macOS
 
-## Construire aplicație desktop
+Urmărește `build_desktop.md` pentru instrucțiuni de generare a unui executabil cu `pyinstaller`.
 
-Vezi `build_desktop.md` pentru pașii de generare a unui executabil Windows/macOS.
+## Notă de utilizare
 
-> Folosește aplicația doar pentru conținutul tău sau materiale pe care ai dreptul să le descarci și să le convertești.
+Folosește aplicația numai pentru materiale pe care ai dreptul să le descarci și să le convertești.
+

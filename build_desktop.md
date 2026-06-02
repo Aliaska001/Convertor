@@ -1,10 +1,17 @@
-# Construire aplicație desktop
+# Construire aplicație desktop (macOS)
 
-Acest ghid explică cum să generezi o aplicație locală pentru Windows și macOS din proiect.
+Acest ghid explică cum să generezi o aplicație locală pentru macOS din proiect (variantă desktop).
 
-## Pași generali
+## Cerințe înainte de build
 
-1. Creează un mediu virtual Python:
+- Python 3.9+
+- `pyinstaller` instalat: `pip install pyinstaller`
+- `PyQt5` instalat în mediu (este în `requirements.txt`)
+- `bin/yt-dlp` prezent în repo (sau `yt-dlp` în PATH)
+
+## Pași pentru macOS
+
+1. Creează și activează un mediu virtual:
 
 ```bash
 python3 -m venv .venv
@@ -18,34 +25,30 @@ pip install -r requirements.txt
 pip install pyinstaller
 ```
 
-3. Construiește aplicația desktop:
-
-### Windows
+3. Construiește aplicația cu PyInstaller (exemplu generare `.app`):
 
 ```bash
-pyinstaller --onefile --windowed --add-data "bin/yt-dlp;bin" desktop_app.py
+pyinstaller --onefile --windowed \
+	--add-data "bin/yt-dlp:bin" \
+	--name ConvertorMP3 \
+	desktop_app.py
 ```
 
-### macOS
+După rulare, pachetul va fi în `dist/ConvertorMP3` (executabil unic). Dacă dorești un `.app` bundle pe macOS, folosește opțiunile PyInstaller pentru bundle sau creează un `.app` din executabil generat.
 
-```bash
-pyinstaller --onefile --windowed --add-data "bin/yt-dlp:bin" desktop_app.py
-```
+## Semnare și notarizare (opțional)
 
-4. Executabilul va fi generat în directorul `dist/`.
+Pentru distribuire pe macOS, cod-signing și notarizare Apple pot fi necesare. Aceste pași sunt în afara scopului acestui ghid, dar, în esență, folosești `codesign` și `altool` / `notarytool`.
 
 ## Observații
 
-- `desktop_app.py` folosește `converter_core.py` pentru descărcare și conversie.
-- `bin/yt-dlp` trebuie inclus în pachet pentru ca aplicația să funcționeze fără instalare separată.
-- Dacă `ffmpeg` nu este găsit în sistem, `imageio-ffmpeg` va furniza un executabil compatibil.
+- `converter_core.py` folosește `yt-dlp` și `ffmpeg`. Asigură-te că `bin/yt-dlp` este executabil (`chmod +x bin/yt-dlp`).
+- Dacă PyInstaller nu include automat toate modulele Qt, consultă documentația PyInstaller pentru adăugarea hook-urilor PyQt5.
 
 ## Rulare locală fără build
 
-Poți porni aplicația local direct din cod:
-
 ```bash
+source .venv/bin/activate
 python desktop_app.py
 ```
 
-Apoi introdu linkul YouTube și folderul în care vrei să salvezi MP3-ul.

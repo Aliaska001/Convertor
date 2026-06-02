@@ -26,10 +26,15 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Download yt-dlp
+        run: |
+          if not exist bin mkdir bin
+          powershell -Command "Invoke-WebRequest -Uri 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe' -OutFile 'bin\yt-dlp.exe'"
+
       - name: Build with PyInstaller
         run: |
           .\.venv\Scripts\activate
-          pyinstaller --onefile --windowed --add-data "bin\\yt-dlp;bin" --name ConvertorMP3 desktop_app.py
+          pyinstaller --onefile --windowed --add-data "bin\yt-dlp.exe;bin" --name ConvertorMP3 desktop_app.py
 
       - name: Package artifact
         run: |

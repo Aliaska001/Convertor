@@ -7,7 +7,7 @@ Acest ghid explică cum să generezi o aplicație locală pentru macOS din proie
 - Python 3.9+
 - `pyinstaller` instalat: `pip install pyinstaller`
 - `PyQt5` instalat în mediu (este în `requirements.txt`)
-- `bin/yt-dlp` prezent în repo (sau `yt-dlp` în PATH)
+- `yt-dlp` instalat: `pip install yt-dlp` (sau descărcat automat la build)
 
 ## Pași pentru macOS
 
@@ -22,16 +22,13 @@ source .venv/bin/activate
 
 ```bash
 pip install -r requirements.txt
-pip install pyinstaller
+pip install pyinstaller yt-dlp
 ```
 
-3. Construiește aplicația cu PyInstaller (exemplu generare `.app`):
+3. Construiește aplicația cu PyInstaller (exemplu generare executabil):
 
 ```bash
-pyinstaller --onefile --windowed \
-	--add-data "bin/yt-dlp:bin" \
-	--name ConvertorMP3 \
-	desktop_app.py
+pyinstaller --onefile --windowed --name ConvertorMP3 desktop_app.py
 ```
 
 După rulare, pachetul va fi în `dist/ConvertorMP3` (executabil unic). Dacă dorești un `.app` bundle pe macOS, folosește opțiunile PyInstaller pentru bundle sau creează un `.app` din executabil generat.
@@ -42,7 +39,7 @@ Pentru distribuire pe macOS, cod-signing și notarizare Apple pot fi necesare. A
 
 ## Observații
 
-- `converter_core.py` folosește `yt-dlp` și `ffmpeg`. Asigură-te că `bin/yt-dlp` este executabil (`chmod +x bin/yt-dlp`).
+- `converter_core.py` folosește `yt-dlp` (instalat via pip) și `ffmpeg` (din `imageio-ffmpeg`).
 - Dacă PyInstaller nu include automat toate modulele Qt, consultă documentația PyInstaller pentru adăugarea hook-urilor PyQt5.
 
 ## Rulare locală fără build
@@ -66,13 +63,13 @@ python -m venv .venv
 
 ```powershell
 pip install -r requirements.txt
-pip install pyinstaller
+pip install pyinstaller yt-dlp
 ```
 
 3. Construiește executabilul Windows (.exe):
 
 ```powershell
-pyinstaller --onefile --windowed --add-data "bin\yt-dlp;bin" --name ConvertorMP3.exe desktop_app.py
+pyinstaller --onefile --windowed --name ConvertorMP3 desktop_app.py
 ```
 
 Fișierul rezultat va fi în `dist\ConvertorMP3.exe`. Pentru distribuire poți crea un installer (`Inno Setup`, `NSIS`) sau împacheta `.exe` într-un `.zip`.

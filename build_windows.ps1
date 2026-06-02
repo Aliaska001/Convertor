@@ -10,6 +10,6 @@ if (-not (Test-Path "bin")) { mkdir bin }
 Invoke-WebRequest -Uri "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe" -OutFile "bin\yt-dlp.exe"
 
 # Build executable
-pyinstaller --onefile --windowed --add-data "bin\yt-dlp.exe;bin" --name ConvertorMP3 desktop_app.py
+pyinstaller --onefile --windowed --add-data "bin\yt-dlp.exe;bin" --icon dj.png --name ConvertorMP3 desktop_app.py
 Write-Host "Build finished. Check the dist\ directory."
 Pause

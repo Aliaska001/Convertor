@@ -10,6 +10,6 @@ if not exist bin mkdir bin
 powershell -Command "Invoke-WebRequest -Uri 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe' -OutFile 'bin\yt-dlp.exe'"
 
 REM Build executable
-pyinstaller --onefile --windowed --add-data "bin\yt-dlp.exe;bin" --name ConvertorMP3 desktop_app.py
+pyinstaller --onefile --windowed --add-data "bin\yt-dlp.exe;bin" --icon dj.png --name ConvertorMP3 desktop_app.py
 echo Build finished. Check the dist\ directory.
 pause

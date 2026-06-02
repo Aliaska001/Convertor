@@ -1,0 +1,43 @@
+name: Build Windows executable
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          .\.venv\Scripts\activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build with PyInstaller
+        run: |
+          .\.venv\Scripts\activate
+          pyinstaller --onefile --windowed --add-data "bin\\yt-dlp;bin" --name ConvertorMP3 desktop_app.py
+
+      - name: Package artifact
+        run: |
+          mkdir artifact || exit 0
+          copy dist\\ConvertorMP3.exe artifact\\ConvertorMP3.exe
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ConvertorMP3-windows
+          path: artifact\\ConvertorMP3.exe
